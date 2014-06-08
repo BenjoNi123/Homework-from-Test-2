@@ -11,11 +11,12 @@ namespace Students
         // Main program, testing sorting capability.
         static void Main(string[] args)
         {
+            //list of students
             List<Student> list = new List<Student>();
-            list.Add(new Student("name1", "Last", "Email", "Sarajevo"));
-            list.Add(new Student("Name2", "Last", "Email", "Tuzla"));
-            list.Add(new Student("Name3", "Last", "Email", "Zenica"));
-            list.Add(new Student("Name4", "Last", "Email", "bezze"));
+            list.Add(new Student("Adnan", "Mujkic", "adnan.mujkic@hotmail.com", "Sarajevo"));
+            list.Add(new Student("Suad", "Kahrminaovic", "suad.kahrimanovic@hotmail.com", "Tuzla"));
+            list.Add(new Student("Samir", "Silajdzic", "samir.silajdzic@hotmail.com", "Zenica"));
+            list.Add(new Student("Hasan", "Jasarevic", "hasan.jasarevic", "Visegrad"));
             list.Sort();
             foreach (Student s in list)
             {
@@ -26,7 +27,7 @@ namespace Students
 
     class Person
     {
-
+        //strings 
         protected string name;
         private string LastName;
         public static int count = 0;
@@ -35,18 +36,21 @@ namespace Students
             get { return LastName; }
             set
             {
+                //Checking if last name has more than 2 characters
                 if (value.Length < 2) throw new Exception("Last name has to be more than two characters long");
                 foreach (Char c in value)
                 {
+                    //Checking if last name has only letters
                     if (!Char.IsLetter(c))
                     {
+                        //throws exception if condition above is not satisfied
                         throw new Exception("Last name can contain letters only");
                     }
                 }
                 LastName = value;
             }
         }
-
+        
         protected Person(string name, string lastName)
         {
             this.name = name;
@@ -66,14 +70,14 @@ namespace Students
 
     class Student : Person, IComparable
     {
-        ~Student() //destructor
+        ~Student() //Empty destructor
         {
 
         }
 
-        public string email { get; set; }
+        public string email { get; set; } //Added automatic property email
 
-        private string _location;
+        private string _location; //Added property Location 
 
         public string Location
         {
@@ -94,19 +98,20 @@ namespace Students
         }
 
         public Student(string name, string lastName, string email)
-            : base(name, lastName)
+            : base(name, lastName) //Student constructor that takes in 3 string arguments name, lastname and email by calling Parent class constructor
         {
             this.email = email;
         }
 
         public Student(string name, string lastName, string email, string location)
-            : base(name,lastName)
+            : base(name,lastName) //Student that takes in 4 string arguments name, lastname, email and location
         {
             this.Location = location;
             this.email = email;
         }
         public bool setName(string input)
         {
+            //Checking if name has more than 2 characters
             if (input.Length < 2)
             {
                 Console.WriteLine("Name must be at least two characters long");
@@ -114,11 +119,13 @@ namespace Students
             }
             if (input.All(Char.IsLetter))
             {
+                //Checking if Name has only letters
                 Console.WriteLine("Name can only have letters");
                 return false;
             }
             if (Char.IsLower(input[0]))
             {
+                //Checking if Name starts with uppercase letter
                 Console.WriteLine("Name must start with an uppercase letter");
                 return false;
             }
@@ -126,18 +133,19 @@ namespace Students
             return true;
         }
 
-        public Student() : base()
+        public Student() : base() // Parameter-less constructor for Student
         {
 
         }
 
-        public string getStudentInfo()
+        public string getStudentInfo() //getStudentInfo returns name, lastname, email and location
         {
             return getPersonInfo()+", "+email+", "+Location;
         }
 
         public int CompareTo(object other)
         {
+            //Using CompareTo to sort Students by location
             return Location.CompareTo(((Student)other).Location);
         }
 
