@@ -8,6 +8,7 @@ namespace Students
 {
     class Program
     {
+        // Main program, testing sorting capability.
         static void Main(string[] args)
         {
             List<Student> list = new List<Student>();
